@@ -1,0 +1,32 @@
+version: '3'
+services:
+  elastic-search:
+    image: elasticsearch:7.10.1
+    container_name: cvl_elasticsearch
+    restart: always
+    ports:
+      - 9200:9200
+      - 9300:9300
+    environment:
+      - discovery.type=single-node
+  kibana:
+    image: kibana:7.10.1
+    container_name: cvl_kibana
+    restart: always
+    ports:
+      - 5601:5601
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elastic-search:9200
+  logstash:
+    image: logstash:7.10.1
+    container_name: cvl_logstash
+    restart: always
+    ports:
+      - 5000:5000
+      - 5044:5044
+      - 9600:9600
+    volumes:
+      - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+    environment:
+      - XPACK_MONITORING_ELASTICSEARCH_HOSTS=http://elastic-search:9200
+      - XPACK_MONITORING_ENABLED=true
