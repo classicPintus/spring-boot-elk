@@ -1,7 +1,7 @@
 version: '3'
 services:
   elastic-search:
-    image: elasticsearch:7.10.1
+    image: elasticsearch:7.14.1
     container_name: cvl_elasticsearch
     restart: always
     ports:
@@ -10,7 +10,7 @@ services:
     environment:
       - discovery.type=single-node
   kibana:
-    image: kibana:7.10.1
+    image: kibana:7.14.1
     container_name: cvl_kibana
     restart: always
     ports:
@@ -18,7 +18,7 @@ services:
     environment:
       - ELASTICSEARCH_HOSTS=http://elastic-search:9200
   logstash:
-    image: logstash:7.10.1
+    image: logstash:7.14.1
     container_name: cvl_logstash
     restart: always
     ports:
